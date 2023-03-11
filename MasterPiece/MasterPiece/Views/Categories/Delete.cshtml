@@ -1,0 +1,46 @@
+﻿@model MasterPiece.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description">
+                                Are you sure you want to delete this?
+                            </p>
+                            <form class="forms-sample">
+                                <div class="form-group">
+                                    <label for="categoryName">Category Name</label>
+                                    <label type="text" class="form-control" id="categoryName"> @Model.Category_Name</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoryDescription">Category Description</label>
+                                    <label type="email" class="form-control" id="categoryDescription">@Model.Category_Description</label>
+                                </div>
+                            </form>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                    @Html.ActionLink("Back to List", "Index", "", new { @class = "btn btn-primary mr-2" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

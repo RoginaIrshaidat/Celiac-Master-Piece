@@ -1,0 +1,87 @@
+﻿@model MasterPiece.Models.Product
+
+@{
+    ViewBag.Title = "Delete Product";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description">
+                                Are you sure you want to delete this?
+                            </p>
+                            <form class="forms-sample">
+                                <div class="form-group">
+                                    <label for="productName">Product Name</label>
+                                    <label type="text" class="form-control" id="productName"> @Model.Product_Name</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productDescription">Product Description</label>
+                                    <label class="form-control" id="productDescription">@Model.Product_Description</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <label class="form-control" id="price">@Model.Price</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantity">Quantity</label>
+                                    <label class="form-control" id="Quantity">@Model.Quantity</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="quantity">In Store</label>
+                                    <label class="form-control" id="Quantity">
+                                        @if (Model.InStore == true)
+                                        {
+                                            <span>In Stock</span>
+                                        }
+                                        else
+                                        {
+                                            <span>out Stock</span>
+                                        }
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category Id</label>
+                                    <label class="form-control" id="category">@Model.Category_id</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="MainImg">Main Image</label>
+                                    <img src="@Model.Main_Image" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Img1"> Image 1</label>
+                                    <img src="@Model.Image1" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Img1"> Image 2</label>
+                                    <img src="@Model.Image2" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Img1"> Image 3</label>
+                                    <img src="@Model.Image3" />
+                                </div>
+                            </form>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                    @Html.ActionLink("Back to List", "Index", "", new { @class = "btn btn-primary mr-2" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

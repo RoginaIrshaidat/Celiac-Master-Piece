@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MasterPiece.Models.AspNetUser>
+
+@{
+    ViewBag.Title = "Statstices";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-md-6 grid-margin transparent">
+    <div class="row">
+        <div class="col-md-6 mb-4 stretch-card transparent">
+            <div class="card card-tale">
+                <div class="card-body">
+                    <p class="mb-4">Number of Customers</p>
+                    <p class="fs-30 mb-2">@ViewBag.clientsCount </p>
+                    <p>10.00% (30 days)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4 stretch-card transparent">
+            <div class="card card-dark-blue">
+                <div class="card-body">
+                    <p class="mb-4">Number of Categories</p>
+                    <p class="fs-30 mb-2">@ViewBag.categoriesCount</p>
+                    <p>22.00% (30 days)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+            <div class="card card-light-blue">
+                <div class="card-body">
+                    <p class="mb-4">Number of Products</p>
+                    <p class="fs-30 mb-2">@ViewBag.productsCount</p>
+                    <p>2.00% (30 days)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 stretch-card transparent">
+            <div class="card card-light-danger">
+                <div class="card-body">
+                    <p class="mb-4">Number of Transaction</p>
+                    <p class="fs-30 mb-2">@ViewBag.PaymentsCount</p>
+                    <p>0.22% (30 days)</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+          

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MasterPiece.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Categories</h4>
+                            <p class="card-description">
+                                @Html.ActionLink("Create new Category", "Create", "", new { @class = "btn btn-success" })
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>@Html.DisplayNameFor(model => model.Category_Name)</th>
+                                            <th> @Html.DisplayNameFor(model => model.Category_Description)</th>
+                                            <th> Action </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var category in Model)
+                                        {
+                                            <tr>
+                                                <td>@category.Category_Name</td>
+                                                <td>@category.Category_Description</td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = category.Category_ID }, new { @class = "btn btn-secondary" })|
+                                                    @Html.ActionLink("Details", "Details", new { id = category.Category_ID }, new { @class = "btn btn-info" })|
+                                                    @Html.ActionLink("Delete", "Delete", new { id = category.Category_ID }, new { @class = "btn btn-danger" })|
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

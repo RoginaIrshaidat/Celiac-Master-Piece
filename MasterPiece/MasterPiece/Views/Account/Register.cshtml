@@ -1,0 +1,59 @@
+﻿@model MasterPiece.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Sign Up";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href="~/Content/CSS/signUp.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <main>
+        <div id="container">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h1> Sign Up </h1><br>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(m => m., new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "inp" })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+
+                        <input type="submit" value="Sign Up">
+                    </div>
+                </div>
+                <span>You alerady have an account! @Html.ActionLink("SignIn", "Login")</span>
+
+            }
+        </div>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,39 @@
+:root{
+    --main-color : #D4D7DC;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.conr {
+    width: 90%;
+    margin: 0 auto;
+}
+header .conr{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0px;    
+    background-color: var(--main-color);
+    color: #6D4B28;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap:10px;
+    }
+    nav ul li a {
+        padding: 10px 30px;
+        
+        font-weight: bold;
+        color: var(--main-color);
+        transition: .5s;
+    }
+    nav ul li a{
+        color:#6D4B28 ;
+      
+    }
+    
+  
+  
