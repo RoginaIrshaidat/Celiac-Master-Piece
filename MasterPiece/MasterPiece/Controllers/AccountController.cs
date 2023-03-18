@@ -77,13 +77,14 @@ namespace MasterPiece.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            var user = db.AspNetUsers.Where(u => u.Email == model.Email).FirstOrDefault();
-            var role = db.AspNetUserRoles.Where(r => r.UserId == user.Id).FirstOrDefault();
-            int roleId=Convert.ToInt32(role.RoleId);
+          
             switch (result)
             {                
                 case SignInStatus.Success:
-                    if (roleId == 1)
+                    var userId = db.AspNetUsers.Where(u => u.Email == model.Email).Select(i=>i.Id).FirstOrDefault();
+                    var isInRole = db.AspNetUserRoles.Where(r => r.UserId == userId).Select(r=>r.RoleId).FirstOrDefault();
+
+                    if (isInRole == "1")
                     {
                         return RedirectToAction("Index", "AspNetUsers");
                     }
@@ -162,7 +163,15 @@ namespace MasterPiece.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
-                {
+                {                   
+                   string userId=db.AspNetUsers.Where(e=>e.Email ==model.Email).Select(i=>i.Id).FirstOrDefault();
+                    AspNetUser newUser = db.AspNetUsers.Find(userId);
+                    AspNetUserRole newRole = new AspNetUserRole();
+                    newRole.RoleId = "2";
+                    newRole.UserId= userId;
+                    db.AspNetUserRoles.Add(newRole);
+                    db.SaveChanges();
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

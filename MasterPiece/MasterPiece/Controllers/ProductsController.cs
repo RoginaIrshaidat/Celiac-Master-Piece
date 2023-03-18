@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -54,9 +55,11 @@ namespace MasterPiece.Controllers
         {
             if (ModelState.IsValid)
             {
+                string mainImgPath = "../ProductImages/" + Main_Image.FileName;
                 //product.Main_Image = Main_Image.FileName;
                 //product.Image1 = Image1.FileName;
-                //Main_Image.SaveAs(Server.MapPath("../Image/" + Main_Image));
+                Main_Image.SaveAs(Server.MapPath(mainImgPath));
+                product.Main_Image = Main_Image.FileName;
                 //Image1.SaveAs(Server.MapPath("../Image/" + Image1));
                 db.Products.Add(product);
                 db.SaveChanges();
@@ -88,10 +91,25 @@ namespace MasterPiece.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Product_ID,Product_Name,Product_Description,Price,InStore,Main_Image,Image1,Image2,Image3,Quantity,Category_id")] Product product)
+        public ActionResult Edit(int? id,[Bind(Include = "Product_ID,Product_Name,Product_Description,Price,InStore,Main_Image,Image1,Image2,Image3,Quantity,Category_id")] Product product, HttpPostedFileBase Main_Image)
         {
             if (ModelState.IsValid)
             {
+                var existingModel = db.Products.AsNoTracking().FirstOrDefault(p => p.Product_ID == id);
+
+
+                if (Main_Image != null)
+                {
+
+                    string mainImgPath = Path.GetFileName(Main_Image.FileName);
+                    Main_Image.SaveAs(Path.Combine(Server.MapPath("~/Image/"), Main_Image.FileName));
+                    product.Main_Image = mainImgPath;
+
+                }
+                else
+                {
+                    product.Main_Image = existingModel.Main_Image;
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

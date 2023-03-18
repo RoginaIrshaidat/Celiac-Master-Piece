@@ -52,8 +52,8 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Shop", "Shop", "Home")</li>
                     <li>@Html.ActionLink("Product", "Product_Details", "Home")</li>
-                    <li><a href="Cart.html">Cart</a></li>
-                    <li><a href="Checkout.html">Checkout</a></li>
+                    <li>@Html.ActionLink("Cart", "AddtoCart", "Home")</li>
+                    <li>@Html.ActionLink("Checkout", "CheckOut", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li class="active">@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -215,7 +215,7 @@
                                     <div class="collapse navbar-collapse" id="footerNavContent">
                                         <ul class="navbar-nav ml-auto">
                                             <li class="nav-item ">
-                                                @Html.ActionLink("Home", "Index", "Home",  new { @class = "nav-link" })
+                                                @Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })
 
                                             </li>
                                             <li class="nav-item">
@@ -225,13 +225,13 @@
                                                 @Html.ActionLink("Product", "Product_Details", "Home", new { @class = "nav-link" })
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="Cart.html">Cart</a>
+                                                @Html.ActionLink("Cart", "AddtoCart", "Home", new { @class = "nav-link" })
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="Checkout.html">Checkout</a>
+                                                @Html.ActionLink("Checkout", "CheckOut", "Home", new { @class = "nav-link" })
                                             </li>
                                             <li class="nav-item">
-                                                @Html.ActionLink("Contact", "Contact", "Home",  new { @class = "nav-link" })
+                                                @Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })
                                             </li>
 
                                         </ul>
