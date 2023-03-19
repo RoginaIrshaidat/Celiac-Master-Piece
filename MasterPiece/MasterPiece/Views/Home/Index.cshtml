@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Title  -->
@@ -81,7 +81,6 @@
                     <li>@Html.ActionLink("Product", "Product_Details", "Home") </li>
                     <li>@Html.ActionLink("Cart", "AddtoCart", "Home")</li>
                     <li>@Html.ActionLink("Checkout", "CheckOut", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </nav>
@@ -180,7 +179,6 @@
                                         </li>
                                         <li class="nav-item">
                                             @Html.ActionLink("Shop", "Shop", "Home", new { @class = "nav-link" })
-
                                         </li>
                                         <li class="nav-item">
                                             @Html.ActionLink("Product", "Product_Details", "Home", new { @class = "nav-link" })

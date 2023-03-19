@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MasterPiece.Models.Product>
+﻿@model Tuple<List<MasterPiece.Models.Product>, List<MasterPiece.Models.Category>>
 
 @{
     Layout = null;
@@ -117,17 +117,12 @@
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
-                        <li ><a href="/Home/Shop">ALL</a></li>
-                        @foreach (var category in Model)
+                        <li><a href="/Home/Shop">ALL</a></li>
+                        @foreach (var category in Model.Item2)
                         {
-                            <li><a href="../Home/singleCategory/@category.Category_id">@category.Category.Category_Name</a></li>
+                            <li><a href="../Home/singleCategory/@category.Category_ID">@category.Category_Name</a></li>
                         }
-                        @*<li class="active"><a href="#">ALL</a></li>
-                            <li><a href="#">Flour</a></li>
-                            <li><a href="#">Spaghetti</a></li>
-                            <li><a href="#">Chips</a></li>
-                            <li><a href="#">Chocolate</a></li>
-                            <li><a href="#">Dietary Supplements </a></li>*@
+                        
                     </ul>
                 </div>
             </div>
@@ -136,19 +131,19 @@
         <div class="amado_product_area section-padding-100">
             <div class="container-fluid">
                 <div class="row">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Item1)
                     {
                         <!-- Single Product Area -->
                         <div class="col-12 col-sm-6 col-md-12 col-xl-6">
                             <div class="single-product-wrapper">
                                 <!-- Product Image -->
                                 <div class="product-img">
-                                    <a href="productDetails.html">
-                                        <img src=@item.Main_Image alt="">
+                                    <a href="/Home/Product_Details/@item.Product_ID">
+                                            <img src=@item.Main_Image alt="">
 
-                                        <!-- Hover Thumb -->
-                                        <img class="hover-img" src=@item.Main_Image alt="">
-                                    </a>
+                                            <!-- Hover Thumb -->
+                                            <img class="hover-img" src=@item.Main_Image alt="">
+                                        </a>
                                 </div>
 
                                 <!-- Product Description -->
@@ -157,7 +152,7 @@
                                     <div class="product-meta-data">
                                         <div class="line"></div>
                                         <p class="product-price">@item.Price</p>
-                                        <a href="productDetails.html">
+                                        <a href="/Home/Product_Details/@item.Product_ID">
                                             <h6>@item.Product_Name</h6>
                                         </a>
                                     </div>

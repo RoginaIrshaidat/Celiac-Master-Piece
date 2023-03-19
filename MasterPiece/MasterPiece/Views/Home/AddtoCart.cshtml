@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MasterPiece.Models.Cart>
+﻿@model IEnumerable<MasterPiece.Models.Product>
 
 @{
     Layout = null;
@@ -11,6 +11,8 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Title  -->
     <title> Cart</title>
@@ -86,9 +88,9 @@
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="Cart.html" class="cart-nav"><img src="../img/core-img/cart.png" alt=""> Cart </a>
-                <a href="signIn.html" class="fav-nav"><img src="../img/core-img/favorites.png" alt=""> Sign-In</a>
-                <a href="#" class="search-nav"><img src="../img/core-img/search.png" alt=""> Search</a>
+                <a href="Cart.html" class="cart-nav"> Cart </a>
+                @Html.Partial("_LoginPartial")
+
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -119,19 +121,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @{double totalMoney = 0; }
                                     @foreach (var product in Model)
                                     {
                                         <tr>
                                             <td class="cart_product_img">
-                                                <a href="#"><img src="../ProductImages/@product.Product.Main_Image" alt="Product"></a>
+                                                <a href="#"><img src="../ProductImages/@product.Main_Image" alt="Product"></a>
                                             </td>
                                             <td class="cart_product_desc">
                                                 <h5>
-                                                   @product.Product.Product_Name
+                                                    @product.Product_Name
                                                 </h5>
                                             </td>
                                             <td class="price">
-                                                <span>@product.Product.Price JD</span>
+                                                <span>@product.Price JD</span>
                                             </td>
                                             <td class="qty">
                                                 <div class="qty-btn d-flex">
@@ -144,6 +147,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        totalMoney = totalMoney + Convert.ToDouble(product.Price);
                                     }
                                 </tbody>
                             </table>
@@ -151,14 +155,29 @@
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="cart-summary">
+                            @{ double totalPrice = totalMoney;}
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>23.00 JOD</span></li>
-                                <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>23.00 JOD</span></li>
+                                <li><span>subtotal:</span> <span>@totalMoney JOD</span></li>
+                                @if (totalMoney >= 50)
+                                {
+                                    <li>
+                                        <span>delivery:</span>
+                                        <span>Free</span>
+                                    </li>
+                                }
+                                else
+                                {
+                                    totalPrice = totalMoney + 5;
+                                    <li>
+                                        <span>delivery:</span>
+                                        <span>5 JOD</span>
+                                    </li>
+                                }
+                                <li><span>total:</span> <span>@totalPrice JOD</span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="Checkout.html" class="btn amado-btn w-100">Checkout</a>
+                                @Html.ActionLink("Checkout", "CheckOut", "Home", new { @class = "btn amado-btn w-100" })
                             </div>
                         </div>
                     </div>
@@ -180,10 +199,8 @@
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
                             <script>document.write(new Date().getFullYear());</script> All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by<a href="Home.html" target="_blank"> Celiac</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
                 </div>
@@ -201,7 +218,6 @@
                                         </li>
                                         <li class="nav-item">
                                             @Html.ActionLink("Shop", "Shop", "Home", new { @class = "nav-link" })
-
                                         </li>
                                         <li class="nav-item">
                                             @Html.ActionLink("Product", "Product_Details", "Home", new { @class = "nav-link" })
@@ -211,10 +227,7 @@
                                         </li>
                                         <li class="nav-item">
                                             @Html.ActionLink("Checkout", "CheckOut", "Home", new { @class = "nav-link" })
-                                        </li>
-                                        @*<li class="nav-item">
-                                                @Html.ActionLink("About", "About", "Home", new {@class= "nav-link" })
-                                            </li>*@
+                                        </li>                                       
                                         <li class="nav-item">
                                             @Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })
                                         </li>

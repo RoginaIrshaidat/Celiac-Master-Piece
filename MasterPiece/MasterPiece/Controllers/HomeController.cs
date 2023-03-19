@@ -39,13 +39,20 @@ namespace MasterPiece.Controllers
         }
         public ActionResult Shop()
         {
-            return View(db.Categories.ToList());
+            var category = db.Categories.ToList();
+            var product = db.Products.ToList();
+            var data = Tuple.Create(product, category);
+
+            return View(data);
         }
         public ActionResult singleCategory(int? id)
         {
-            var category =db.Products.Where(c=>c.Category.Category_ID==id);
+            var category = db.Categories.ToList();
+            var product = db.Products.Where(c => c.Category.Category_ID == id).ToList();
+            var data = Tuple.Create(product, category);
            
-            return View(category);
+            return View(data
+                );
         }
         public ActionResult Product_Details(int? id)
         {
@@ -55,13 +62,48 @@ namespace MasterPiece.Controllers
         [Authorize]
         public ActionResult AddtoCart(int? id)
         {
-            var cartItem = db.Carts.SingleOrDefault(p => p.Product.Product_ID == id);
-            if (cartItem==null)
+            HttpCookie addToCart = Request.Cookies["addToCart"];
+            List<Product> allProducts = new List<Product>();
+            if (addToCart != null)
             {
+                List<string> items = new List<string>(addToCart.Value.Split('|'));
+                dynamic ClientProducts = new Product();
 
-            }               
-            return View();
+                foreach (var product in items)
+                {
+                    int productID = Convert.ToInt32(product);
+                    List<Product> itemInCart = db.Products.Where(p => p.Product_ID == productID).ToList();
+                    allProducts.AddRange(itemInCart);
+                }
+                ClientProducts = allProducts;
+                return View(ClientProducts);
+            }
+            else
+            {
+                IEnumerable<Product> model = new List<Product>();
+                return View(model);
+            }
         }
+        public ActionResult AddProduct(int? id, string returnUrl)
+        {
+            HttpCookie cart = new HttpCookie("cart");
+
+            List<string> items = new List<string>();
+            if (Request.Cookies["cart"] != null)
+            {
+                items = new List<string>(Request.Cookies["cart"].Value.Split('|'));
+            }
+
+            items.Add(id.ToString());
+
+            cart.Value = string.Join("|", items);
+            cart.Expires = DateTime.Now.AddDays(5);
+            Response.Cookies.Add(cart);
+
+            return Redirect(returnUrl);
+        }
+
+
         public ActionResult CheckOut(int? id)
         {
             
